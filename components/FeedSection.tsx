@@ -1,30 +1,20 @@
-/* The Facebook feed section is hidden until the sync-facebook build script
-   writes posts into it. In the Next.js port it stays hidden by default; the
-   sync script can be updated to write static post data into a JSON file
-   that this component imports. */
+'use client'
+import { useEffect, useRef, useState } from 'react'
+const pageUrl = 'https://www.facebook.com/profile.php?id=100064043744190'
 export default function FeedSection() {
-  return (
-    <section className="section section--sunk" id="feed" hidden>
-      <div className="wrap">
-        <div className="head reveal">
-          <p className="eyebrow">From the feed</p>
-          <h2 className="t">What&apos;s going up, while it goes up</h2>
-          <p>
-            Straight from our Facebook page — builds in progress, sites going live, and
-            the occasional thing we learned the hard way. No schedule, no filler. If it
-            is here, it happened.
-          </p>
-        </div>
-        <div className="grid-fb reveal" style={{ '--d': 1 } as React.CSSProperties} id="fb-grid">
-          {/* FB_POSTS:START */}
-          {/* FB_POSTS:END */}
-        </div>
-        <p className="feed-more reveal" style={{ '--d': 2 } as React.CSSProperties}>
-          <a href="https://www.facebook.com/" id="fb-page-link" rel="noopener">
-            See everything on Facebook
-          </a>
-        </p>
-      </div>
-    </section>
-  )
+  const container = useRef<HTMLDivElement>(null)
+  const [width, setWidth] = useState(0)
+  useEffect(() => {
+    const element = container.current
+    if (!element) return
+    const resize = () => setWidth(Math.min(500, Math.floor(element.clientWidth)))
+    resize()
+    const observer = new ResizeObserver(resize)
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
+  return <section className="section section--sunk" id="feed"><div className="wrap facebook-layout">
+    <div className="head"><p className="eyebrow">Facebook</p><h2 className="t">Latest from Gobiya</h2><p>Posts and updates from our Facebook Page.</p><a className="textlink" href={pageUrl} target="_blank" rel="noopener noreferrer">View posts on Facebook ↗</a><p className="feed-help">If the feed is unavailable, use the link to view our posts on Facebook.</p></div>
+    <div className="facebook-frame" ref={container}>{width > 0 && <iframe title="Gobiya Facebook Page posts" src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(pageUrl)}&tabs=timeline&width=${width}&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false`} width={width} height="600" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" />}</div>
+  </div></section>
 }

@@ -86,6 +86,7 @@ function WorkCard({ site, index }: { site: (typeof SITES)[0]; index: number }) {
 type FilterKey = 'all' | 'landing' | 'product' | 'immersive'
 
 export default function WorkSection() {
+  const [expanded, setExpanded] = useState(false)
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all')
   const gridRef = useRef<HTMLDivElement>(null)
 
@@ -108,7 +109,7 @@ export default function WorkSection() {
     )
     grid.querySelectorAll('.reveal').forEach((el) => obs.observe(el))
     return () => obs.disconnect()
-  }, [activeFilter])
+  }, [activeFilter, expanded])
 
   const filters: { key: FilterKey; label: string }[] = [
     { key: 'all', label: 'All' },
@@ -133,10 +134,10 @@ export default function WorkSection() {
       <div className="wrap">
         <div className="head reveal">
           <p className="eyebrow">Latest work</p>
-          <h2 className="t">Sites that move, and get found</h2>
+          <h2 className="t">See what your next website could look like</h2>
           <p>
-            Custom built, with real motion. Written to rank on Google and to get quoted by
-            ChatGPT. Previews play below.
+            Explore design examples across business websites, products, and interactive experiences.
+            Choose a category to find a direction for your brand.
           </p>
         </div>
 
@@ -149,7 +150,7 @@ export default function WorkSection() {
               type="button"
               data-filter={key}
               aria-pressed={activeFilter === key}
-              onClick={() => setActiveFilter(key)}
+              onClick={() => { setActiveFilter(key); setExpanded(false) }}
             >
               {label}
               <span className="filter-n" aria-hidden="true">{counts[key]}</span>
@@ -158,9 +159,13 @@ export default function WorkSection() {
         </div>
 
         <div className="grid-work" id="work-grid" ref={gridRef}>
-          {visible.map((site, i) => (
+          {(expanded ? visible : visible.slice(0, 6)).map((site, i) => (
             <WorkCard key={site.name} site={site} index={i} />
           ))}
+        </div>
+        <div className="work-expand">
+          <p role="status">Showing {expanded ? visible.length : Math.min(6, visible.length)} of {visible.length} design examples</p>
+          {visible.length > 6 && <button className="filter" type="button" aria-expanded={expanded} aria-controls="work-grid" onClick={() => setExpanded(!expanded)}>{expanded ? "Show fewer examples" : "Explore all examples"}</button>}
         </div>
         {visible.length === 0 && (
           <p className="grid-empty">No sites in that category yet.</p>

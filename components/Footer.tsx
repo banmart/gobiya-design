@@ -24,20 +24,20 @@ export default function Footer() {
           <div>
             <h2>Services</h2>
             <ul>
-              <li><a href="#services">Web design</a></li>
-              <li><a href="#services">Search optimization</a></li>
-              <li><a href="#ai-search">AI search &amp; GEO</a></li>
-              <li><a href="#services">Schema markup</a></li>
+              <li><a href="/web-design/">Web design</a></li>
+              <li><a href="/seo/">Search optimization</a></li>
+              <li><a href="/ai-search/">AI search &amp; GEO</a></li>
+
             </ul>
           </div>
 
           <div>
             <h2>Studio</h2>
             <ul>
-              <li><a href="#work">Work</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#process">Process</a></li>
-              <li><a href="#faq">FAQ</a></li>
+              <li><a href="/work/">Work</a></li>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/contact/">Contact</a></li>
+              <li><a href="/#feed">Facebook updates</a></li>
             </ul>
           </div>
 
@@ -54,9 +54,7 @@ export default function Footer() {
         </div>
 
         <div className="colophon">
-          <p>
-            Set in Poppins. Built with Next.js, hand-finished — no page builders.
-          </p>
+
           <p>© {new Date().getFullYear()} Gobiya. Web design &amp; search optimization, Los Angeles.</p>
         </div>
       </div>

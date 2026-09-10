@@ -19,3 +19,8 @@ Thumbs.db
 # Editor
 .vscode/
 *.swp
+/.next-dev/
+/.next-dev-*.log
+
+# TypeScript
+*.tsbuildinfo

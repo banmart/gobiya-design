@@ -2,8 +2,11 @@
 
 import { useEffect, useRef, useCallback, useState } from 'react'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { navigation } from '@/lib/navigation'
 
 export default function Nav() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
   const menuRef = useRef<HTMLElement>(null)
@@ -12,6 +15,7 @@ export default function Nav() {
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', isOpen)
+    return () => document.body.classList.remove('menu-open')
   }, [isOpen])
 
   useEffect(() => {
@@ -45,7 +49,7 @@ export default function Nav() {
 
   return (
     <header className="nav">
-      <a className="brand" href="#top">
+      <a className="brand" href="/">
         <Image
           className="brand__mark rise"
           style={{ '--i': 0 } as React.CSSProperties}
@@ -67,13 +71,8 @@ export default function Nav() {
         ref={menuRef}
         onClick={handleMenuClick}
       >
-        <ul className="nav__links">
-          <li className="rise" style={{ '--i': 2 } as React.CSSProperties}><a href="#work">Work</a></li>
-          <li className="rise" style={{ '--i': 3 } as React.CSSProperties}><a href="#ai-search">AI Search</a></li>
-          <li className="rise" style={{ '--i': 4 } as React.CSSProperties}><a href="#process">Process</a></li>
-          <li className="rise" style={{ '--i': 5 } as React.CSSProperties}><a href="#faq">FAQ</a></li>
-        </ul>
-        <a className="btn-dark menu__cta" href="#check">Free site check</a>
+        <ul className="nav__links">{navigation.map(({ href, label }) => <li key={href}><a href={href} aria-current={pathname.replace(/\/$/, "") === href.replace(/\/$/, "") ? "page" : undefined}>{label}</a></li>)}</ul>
+        <a className="btn-dark menu__cta" href="/contact/#check">Free site check</a>
         <a className="tel-link menu__tel" href="tel:+13237441338">
           <PhoneIcon />
           <span>323-744-1338</span>
@@ -85,7 +84,7 @@ export default function Nav() {
           <PhoneIcon />
           <span>323-744-1338</span>
         </a>
-        <a className="btn-dark" href="#check">Free site check</a>
+        <a className="btn-dark" href="/contact/#check">Free site check</a>
       </div>
 
       <button

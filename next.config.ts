@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // Keep build checks from overwriting the running development server's files.
+  distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
   // Static export — zero server required, same perf story as the original
   output: 'export',
   // Disable Next's built-in image optimizer (not available in static export)

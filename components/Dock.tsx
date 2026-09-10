@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import { navigation } from '@/lib/navigation'
 
 export default function Dock() {
   const dockRef = useRef<HTMLDivElement>(null)
@@ -30,16 +31,11 @@ export default function Dock() {
   return (
     <div className="dock" id="dock" ref={dockRef}>
       <div className="dock__in">
-        <a className="dock__brand" href="#top">
+        <a className="dock__brand" href="/">
           <Image src="/gobiya-logo-neon-black.webp" alt="" width={1075} height={1075} decoding="async" unoptimized />
           <span>Gobiya</span>
         </a>
-        <nav className="dock__nav" aria-label="Sections">
-          <a href="#work">Work</a>
-          <a href="#ai-search">AI Search</a>
-          <a href="#process">Process</a>
-          <a href="#faq">FAQ</a>
-        </nav>
+        <nav className="dock__nav" aria-label="Primary">{navigation.map(({ href, label }) => <a key={href} href={href}>{label}</a>)}</nav>
         <a className="tel-link dock__tel" href="tel:+13237441338" aria-label="Call Gobiya at 323-744-1338">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
                strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -47,7 +43,7 @@ export default function Dock() {
           </svg>
           <span>323-744-1338</span>
         </a>
-        <a className="btn-dark dock__cta" href="#check">Free site check</a>
+        <a className="btn-dark dock__cta" href="/contact/#check">Free site check</a>
       </div>
     </div>
   )
