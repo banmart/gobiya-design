@@ -11,7 +11,7 @@ export default function Dock() {
     const hero = document.querySelector('.hero')
     if (!dock || !hero) return
 
-    if ('IntersectionObserver' in window) {
+    if (typeof window.IntersectionObserver !== 'undefined') {
       const obs = new IntersectionObserver(
         ([entry]) => dock.classList.toggle('is-on', !entry.isIntersecting),
         { rootMargin: '-72px 0px 0px 0px', threshold: 0 }
