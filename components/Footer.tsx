@@ -1,10 +1,20 @@
+import Image from 'next/image'
+
 export default function Footer() {
   return (
     <footer className="foot">
       <div className="wrap">
         <div className="foot-grid">
           <div>
-            <h2>Gobiya</h2>
+            <Image
+              className="foot__mark"
+              src="/gobiya-logo-black-white.webp"
+              alt="Gobiya"
+              width={1075}
+              height={1075}
+              decoding="async"
+              unoptimized
+            />
             <p className="foot-about">
               A Los Angeles web design and search studio. Fast custom websites, structured so
               Google and AI search can find and cite your business.

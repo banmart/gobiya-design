@@ -31,8 +31,8 @@ export const metadata: Metadata = {
       'Fast custom websites, structured so Google and AI search can find and cite your business.',
   },
   icons: {
-    icon: { url: '/favicon-gobiya.webp', sizes: '328x328', type: 'image/webp' },
-    apple: '/favicon-gobiya.webp',
+    icon: { url: '/gobiya-logo-neon-black.webp', sizes: '1075x1075', type: 'image/webp' },
+    apple: '/gobiya-logo-neon-black.webp',
   },
 }
 

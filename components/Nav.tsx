@@ -49,10 +49,10 @@ export default function Nav() {
         <Image
           className="brand__mark rise"
           style={{ '--i': 0 } as React.CSSProperties}
-          src="/gobiya-mark.webp"
+          src="/gobiya-logo-neon-black.webp"
           alt=""
-          width={180}
-          height={222}
+          width={1075}
+          height={1075}
           decoding="async"
           fetchPriority="high"
           unoptimized

@@ -1124,6 +1124,7 @@ code {
   grid-template-columns: 1.7fr repeat(3, 1fr);
   gap: clamp(26px, 3.4vw, 48px);
 }
+.foot__mark { display: block; height: 32px; width: 32px; border-radius: 7px; margin-bottom: 14px; }
 .foot h2 {
   margin: 0 0 14px;
   font-size: 13px;

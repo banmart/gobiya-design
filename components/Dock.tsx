@@ -31,7 +31,7 @@ export default function Dock() {
     <div className="dock" id="dock" ref={dockRef}>
       <div className="dock__in">
         <a className="dock__brand" href="#top">
-          <Image src="/gobiya-mark.webp" alt="" width={180} height={222} decoding="async" unoptimized />
+          <Image src="/gobiya-logo-neon-black.webp" alt="" width={1075} height={1075} decoding="async" unoptimized />
           <span>Gobiya</span>
         </a>
         <nav className="dock__nav" aria-label="Sections">
