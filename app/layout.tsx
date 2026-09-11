@@ -17,23 +17,23 @@ const anton = Anton({
 })
 
 export const metadata: Metadata = {
-  title: 'Gobiya — Web design and AI search optimization | Los Angeles',
+  title: 'Gobiya Agency — Web design and AI search optimization | Los Angeles',
   description:
-    'Gobiya is a Los Angeles web design and search studio. We build fast custom websites and structure them so Google, ChatGPT, Perplexity and AI Overviews can find and cite your business.',
+    'Gobiya Agency is a Los Angeles web design and search studio. We build fast custom websites and structure them so Google, ChatGPT, Perplexity and AI Overviews can find and cite your business.',
   metadataBase: new URL('https://www.gobiya.com'),
   alternates: { canonical: 'https://www.gobiya.com/' },
 
   openGraph: {
     type: 'website',
     url: 'https://www.gobiya.com/',
-    siteName: 'Gobiya',
-    title: 'Gobiya — Web design and AI search optimization | Los Angeles',
+    siteName: 'Gobiya Agency',
+    title: 'Gobiya Agency — Web design and AI search optimization | Los Angeles',
     description:
       'Fast custom websites, structured so Google and AI search can find and cite your business. Los Angeles.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Gobiya — Web design and AI search optimization',
+    title: 'Gobiya Agency — Web design and AI search optimization',
     description:
       'Fast custom websites, structured so Google and AI search can find and cite your business.',
   },
@@ -49,11 +49,11 @@ const structuredData = {
     {
       '@type': 'ProfessionalService',
       '@id': 'https://www.gobiya.com/#studio',
-      name: 'Gobiya',
+      name: 'Gobiya Agency',
       description:
         'Los Angeles web design and search optimization studio building fast custom websites structured for Google and AI search.',
       url: 'https://www.gobiya.com/',
-      email: 'hello@gobiya.com',
+      email: 'steve@gobiya.com',
       telephone: '+1-323-744-1338',
       contactPoint: [
         {
@@ -72,7 +72,9 @@ const structuredData = {
       ],
       address: {
         '@type': 'PostalAddress',
+        streetAddress: '3580 Wilshire Blvd, Ste 132',
         addressLocality: 'Los Angeles',
+        postalCode: '90010',
         addressRegion: 'CA',
         addressCountry: 'US',
       },
@@ -94,7 +96,7 @@ const structuredData = {
       '@type': 'WebSite',
       '@id': 'https://www.gobiya.com/#website',
       url: 'https://www.gobiya.com/',
-      name: 'Gobiya',
+      name: 'Gobiya Agency',
       publisher: { '@id': 'https://www.gobiya.com/#studio' },
       inLanguage: 'en-US',
     },

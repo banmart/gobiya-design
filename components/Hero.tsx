@@ -1,33 +1,26 @@
 import Nav from './Nav'
-import HeroBackground from './HeroBackground'
-import CheckForm from './CheckForm'
+import HomepageCheck from './HomepageCheck'
 
 export default function Hero() {
   return (
-    <section className="hero">
-      <HeroBackground />
-
+    <section className="home-hero">
       <div className="hero__inner">
-        <Nav />
+        <Nav checkHref="#check" />
 
-        <div className="stage">
-          <div className="badge rise" style={{ '--i': 8 } as React.CSSProperties}>
-            <span className="badge__tag">Free</span>
-            <span>AI search check — no call required</span>
-          </div>
-
-          <h1 className="headline hero-title rise" style={{ '--i': 10 } as React.CSSProperties}>
-            Web design.<br className="brk" /> Search visibility.
+        <div className="home-intro">
+          <div className="home-copy">
+          <p className="home-kicker">Web design & search · Los Angeles</p>
+          <h1>
+            A better website.<br />More ways to<br /><span>get found.</span>
           </h1>
 
-          <p className="sub rise" style={{ '--i': 12 } as React.CSSProperties}>
-            Custom websites, SEO, and AI search optimization.
-            Based in Los Angeles. Working with businesses across the US.
+          <p className="home-description">
+            We build custom websites and help your business show up on Google and in AI search.
           </p>
 
-          <a className="hero-call btn-dark" href="tel:+13237441338">Call 323-744-1338</a>
-          <CheckForm />
-          <a className="hero-work-link" href="/work/">Explore the work <span aria-hidden="true">↗</span></a>
+          <a className="home-work" href="/work/">See our work <span aria-hidden="true">↗</span></a>
+          </div>
+          <HomepageCheck />
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ export default function CtaSection() {
           <div className="close-actions reveal" style={{ '--d': 1 } as React.CSSProperties}>
             <a className="btn-light" href="#check">Check my site free</a>
             <a className="btn-ghost" href="tel:+13237441338">Call 323-744-1338</a>
-            <a className="btn-ghost" href="mailto:hello@gobiya.com">Email instead</a>
+            <a className="btn-ghost" href="mailto:steve@gobiya.com">Email instead</a>
           </div>
         </div>
       </div>

@@ -4,5 +4,6 @@ export const navigation = [
   { href: '/ai-search/', label: 'AI Search' },
   { href: '/work/', label: 'Work' },
   { href: '/about/', label: 'About' },
+  { href: '/blog/', label: 'Blog' },
   { href: '/contact/', label: 'Contact' },
 ]

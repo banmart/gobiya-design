@@ -9,14 +9,14 @@ export default function Footer() {
             <Image
               className="foot__mark"
               src="/gobiya-logo-black-white.webp"
-              alt="Gobiya"
+              alt="Gobiya Agency"
               width={1075}
               height={1075}
               decoding="async"
               unoptimized
             />
             <p className="foot-about">
-              A Los Angeles web design and search studio. Fast custom websites, structured so
+              Gobiya Agency. A Los Angeles web design and search studio. Custom websites, structured so
               Google and AI search can find and cite your business.
             </p>
           </div>
@@ -36,6 +36,7 @@ export default function Footer() {
             <ul>
               <li><a href="/work/">Work</a></li>
               <li><a href="/about/">About</a></li>
+              <li><a href="/blog/">Blog</a></li>
               <li><a href="/contact/">Contact</a></li>
               <li><a href="/#feed">Facebook updates</a></li>
             </ul>
@@ -46,16 +47,16 @@ export default function Footer() {
             <ul>
               <li><a href="tel:+13237441338">323-744-1338</a></li>
               <li><a href="mailto:steve@gobiya.com">steve@gobiya.com</a></li>
-              <li><a href="mailto:hello@gobiya.com">hello@gobiya.com</a></li>
-              <li>Los Angeles, California</li>
-              <li>Weekdays, 9–6 Pacific</li>
+
+              <li><address className="company-address">3580 Wilshire Blvd, Ste 132<br />Los Angeles, CA 90010</address></li>
+              <li>Weekdays, 9 AM–5 PM</li><li>Saturday, 9 AM–3 PM</li>
             </ul>
           </div>
         </div>
 
         <div className="colophon">
 
-          <p>© {new Date().getFullYear()} Gobiya. Web design &amp; search optimization, Los Angeles.</p>
+          <p>© {new Date().getFullYear()} Gobiya Agency. Web design &amp; search optimization, Los Angeles.</p>
         </div>
       </div>
     </footer>

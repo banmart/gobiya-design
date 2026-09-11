@@ -65,7 +65,7 @@ export default function CheckForm() {
     field.current?.focus()
   }
 
-  const draft = 'mailto:hello@gobiya.com?subject=' + encodeURIComponent(`Website review — ${website}`) + '&body=' + encodeURIComponent(`Website: ${website}\nEmail: ${email}\nPriority: ${goal}\n`)
+  const draft = 'mailto:steve@gobiya.com?subject=' + encodeURIComponent(`Website review — ${website}`) + '&body=' + encodeURIComponent(`Website: ${website}\nEmail: ${email}\nPriority: ${goal}\n`)
   const placeholder = step === 'goal' ? 'Tell us what you want to improve…' : step === 'website' ? 'yourbusiness.com' : 'you@yourbusiness.com'
 
   return <section className="review-chat prompt rise" style={{ '--i': 14 } as React.CSSProperties} id="check" aria-labelledby="chat-title">

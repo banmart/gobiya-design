@@ -1,22 +1,23 @@
 import Hero from '@/components/Hero'
-import Dock from '@/components/Dock'
 import TrustStrip from '@/components/TrustStrip'
 import ServicesSection from '@/components/ServicesSection'
 import FeedSection from '@/components/FeedSection'
 import Footer from '@/components/Footer'
-import RevealInit from '@/components/RevealInit'
+import './home.css'
+import BlogSection from '@/components/BlogSection'
+import Testimonials from '@/components/Testimonials'
 
 export default function Page() {
-  return <>
+  return <div className="home">
     <a className="skip" href="#main">Skip to content</a>
-    <RevealInit />
     <main id="main">
       <Hero />
-      <TrustStrip />
+      <TrustStrip compact />
       <ServicesSection />
-      <FeedSection />
+      <Testimonials />
+      <BlogSection homepage />
+      <FeedSection compact />
     </main>
-    <Dock />
     <Footer />
-  </>
+  </div>
 }

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { navigation } from '@/lib/navigation'
 
-export default function Nav() {
+export default function Nav({ checkHref = '/contact/#check' }: { checkHref?: string }) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const toggleRef = useRef<HTMLButtonElement>(null)
@@ -61,7 +61,7 @@ export default function Nav() {
           fetchPriority="high"
           unoptimized
         />
-        <span className="rise" style={{ '--i': 1 } as React.CSSProperties}>Gobiya</span>
+        <span className="rise" style={{ '--i': 1 } as React.CSSProperties}>Gobiya Agency</span>
       </a>
 
       <nav
@@ -72,7 +72,7 @@ export default function Nav() {
         onClick={handleMenuClick}
       >
         <ul className="nav__links">{navigation.map(({ href, label }) => <li key={href}><a href={href} aria-current={pathname.replace(/\/$/, "") === href.replace(/\/$/, "") ? "page" : undefined}>{label}</a></li>)}</ul>
-        <a className="btn-dark menu__cta" href="/contact/#check">Free site check</a>
+        <a className="btn-dark menu__cta" href={checkHref}>Free site check</a>
         <a className="tel-link menu__tel" href="tel:+13237441338">
           <PhoneIcon />
           <span>323-744-1338</span>
@@ -80,11 +80,11 @@ export default function Nav() {
       </nav>
 
       <div className="nav__cta rise" style={{ '--i': 6 } as React.CSSProperties}>
-        <a className="tel-link" href="tel:+13237441338" aria-label="Call Gobiya at 323-744-1338">
+        <a className="tel-link" href="tel:+13237441338" aria-label="Call Gobiya Agency at 323-744-1338">
           <PhoneIcon />
           <span>323-744-1338</span>
         </a>
-        <a className="btn-dark" href="/contact/#check">Free site check</a>
+        <a className="btn-dark" href={checkHref}>Free site check</a>
       </div>
 
       <button
