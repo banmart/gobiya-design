@@ -129,15 +129,19 @@ ul,ol{list-style:none}
 .nav-r{display:flex;align-items:center;justify-content:flex-end;gap:14px}
 .nav-call{font-size:13px;font-weight:500;letter-spacing:-.01em;color:var(--ink2);transition:color .3s}
 .nav-call:hover{color:var(--ink)}
-.burger{display:none;position:relative;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.06)}
+.burger{display:block;position:relative;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.06);transition:background .3s}
+.burger:hover{background:rgba(0,0,0,.1)}
+/* compact header on every screen size: logo, Free review, menu button */
+.nav{grid-template-columns:auto auto}
+.nav-links,.nav-call{display:none}
 .burger i{position:absolute;left:11px;right:11px;height:1.6px;background:var(--ink);border-radius:2px;transition:transform .5s var(--ease)}
 .burger i:first-child{top:15px}.burger i:last-child{top:21px}
 .burger[aria-expanded="true"] i:first-child{transform:translateY(3px) rotate(45deg)}
 .burger[aria-expanded="true"] i:last-child{transform:translateY(-3px) rotate(-45deg)}
 
 .menu{position:fixed;inset:0;z-index:95;background:var(--bg);padding:96px var(--gut) 32px;display:flex;flex-direction:column;justify-content:space-between;
-  clip-path:circle(0% at calc(100% - 40px) 40px);visibility:hidden;transition:clip-path .9s var(--ease),visibility 0s .9s}
-.menu.open{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible;transition:clip-path .9s var(--ease)}
+  clip-path:circle(0% at var(--mx,calc(100% - 40px)) var(--my,40px));visibility:hidden;transition:clip-path .9s var(--ease),visibility 0s .9s}
+.menu.open{clip-path:circle(150% at var(--mx,calc(100% - 40px)) var(--my,40px));visibility:visible;transition:clip-path .9s var(--ease)}
 .menu a.m{display:block;font-size:clamp(2.6rem,12vw,5rem);letter-spacing:-.055em;line-height:1.02;font-weight:450;overflow:hidden}
 .menu a.m span{display:block;transform:translateY(105%);transition:transform .9s var(--ease);transition-delay:calc(var(--i)*60ms + .25s)}
 .menu.open a.m span{transform:none}
@@ -787,10 +791,6 @@ html:not(.js) .nav{transform:none;opacity:1}
    RESPONSIVE
    ===================================================================== */
 @media (max-width:1000px){
-  .nav-links{display:none}
-  .nav{grid-template-columns:1fr auto}
-  .nav-call{display:none}
-  .burger{display:block}
   .wallsec{grid-template-columns:1fr}
   .wall{min-height:62svh}
   .wall-copy{padding:48px var(--gut) 72px}

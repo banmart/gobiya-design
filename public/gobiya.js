@@ -551,7 +551,7 @@ seg($('#billing'),b=>{
    ===================================================================== */
 const nav=$('#nav'),menu=$('#menu'),burger=$('#burger'),review=$('#review');
 function lock(){document.body.classList.toggle('lock',menu.classList.contains('open')||review.classList.contains('open')||!loaded)}
-function setMenu(o){menu.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);menu.setAttribute('aria-hidden',!o);lock()}
+function setMenu(o){const br=burger.getBoundingClientRect();menu.style.setProperty('--mx',(br.left+br.width/2)+'px');menu.style.setProperty('--my',(br.top+br.height/2)+'px');menu.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);menu.setAttribute('aria-hidden',!o);lock()}
 burger.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
 function openReview(x,y){
   review.style.setProperty('--ox',(x??VW/2)+'px');review.style.setProperty('--oy',(y??VH)+'px');
