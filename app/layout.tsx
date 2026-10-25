@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 },
   authors: [{ name: 'Gobiya' }],
   formatDetection: { telephone: false },
+  verification: { google: 'BCJ8-9rzY9X5CjZqM2hY7erF-1vFCZHFKl-Y-nbXv3U' },
   other: { 'geo.region': 'US-CA', 'geo.placename': 'Los Angeles' },
   openGraph: {
     type: 'website',
