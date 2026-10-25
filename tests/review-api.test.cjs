@@ -31,11 +31,20 @@ test('uses RESEND_API, sends all fields to Steve, sets reply-to, and deduplicate
   assert.equal(email.from, 'Gobiya Agency <steve@gobiya.com>')
   assert.equal(email.reply_to, fields.email)
   for (const value of Object.values(fields)) assert.ok(email.text.includes(value))
+  assert.ok(!email.text.includes('Message:'))
+})
+
+test('includes the optional message from the homepage form', async () => {
+  const calls = []
+  const post = setup(async (url, options) => { calls.push(options); return Response.json({ id: 'm' }) })
+  assert.equal((await post({ ...fields, message: 'We open a second location in March.\nPlease look at booking.' })).status, 200)
+  const email = JSON.parse(calls[0].body)
+  assert.ok(email.text.includes('Message:\nWe open a second location in March.\nPlease look at booking.'))
 })
 
 test('invalid fields cannot trigger an email', async () => {
   const post = setup(() => { throw new Error('Must not contact Resend') })
-  for (const invalid of [{ fullName: ' ' }, { phone: 'abc' }, { email: 'bad' }, { website: 'javascript:alert(1)' }, { fullName: 'Header\nInjection' }]) {
+  for (const invalid of [{ fullName: ' ' }, { phone: 'abc' }, { email: 'bad' }, { website: 'javascript:alert(1)' }, { fullName: 'Header\nInjection' }, { message: 'x'.repeat(2001) }, { message: 42 }]) {
     assert.equal((await post({ ...fields, ...invalid })).status, 400)
   }
 })

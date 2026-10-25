@@ -1,23 +1,19 @@
-import Hero from '@/components/Hero'
-import TrustStrip from '@/components/TrustStrip'
-import ServicesSection from '@/components/ServicesSection'
-import FeedSection from '@/components/FeedSection'
-import Footer from '@/components/Footer'
-import './home.css'
-import BlogSection from '@/components/BlogSection'
-import Testimonials from '@/components/Testimonials'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+import Script from 'next/script'
+
+// The whole site is this one page. Its markup lives in app/home.html and its
+// motion/interaction code in public/gobiya.js, so both can be edited as plain
+// HTML and JavaScript. The markup is read at build time and served as static HTML.
+const markup = readFileSync(join(process.cwd(), 'app', 'home.html'), 'utf8')
+
+export const dynamic = 'force-static'
 
 export default function Page() {
-  return <div className="home">
-    <a className="skip" href="#main">Skip to content</a>
-    <main id="main">
-      <Hero />
-      <TrustStrip compact />
-      <ServicesSection />
-      <Testimonials />
-      <BlogSection homepage />
-      <FeedSection compact />
-    </main>
-    <Footer />
-  </div>
+  return (
+    <>
+      <div style={{ display: 'contents' }} dangerouslySetInnerHTML={{ __html: markup }} />
+      <Script src="/gobiya.js" strategy="afterInteractive" />
+    </>
+  )
 }

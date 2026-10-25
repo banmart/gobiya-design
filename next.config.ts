@@ -3,34 +3,39 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   // Keep build checks from overwriting the running development server's files.
   distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
-  // The review form uses a server-side route to keep Resend credentials private.
-  // Disable Next's built-in image optimizer (not available in static export)
-  // and keep animated webp / gif playing as plain <img> tags
+  // The review form uses a server-side route (/api/review) to keep Resend credentials private.
   images: {
     unoptimized: true,
   },
-  // Trailing slash keeps canonical URLs clean on static hosts
+  // Trailing slash keeps canonical URLs clean
   trailingSlash: true,
-  // Pages from the previous site that no longer exist. Permanent (308) so the
-  // old URLs pass their link equity to the closest page we still publish.
+  // The site is a single page now. Every former page permanently redirects (308)
+  // to the matching section of the homepage so old links keep their value.
   async redirects() {
+    const to = (source: string, destination: string) => ({ source, destination, permanent: true })
     return [
-      // Article archive -> the blog
-      { source: '/insights', destination: '/blog/', permanent: true },
-      { source: '/glossary', destination: '/blog/', permanent: true },
-      // Service overviews -> the homepage, where every service is listed
-      { source: '/services', destination: '/', permanent: true },
-      { source: '/solutions', destination: '/', permanent: true },
-      // How we work -> about
-      { source: '/process', destination: '/about/', permanent: true },
-      // Search topic and city landing pages -> the SEO service page
-      { source: '/seo-myths', destination: '/seo/', permanent: true },
-      { source: '/los-angeles-seo', destination: '/seo/', permanent: true },
-      { source: '/glendale-seo', destination: '/seo/', permanent: true },
-      { source: '/van-nuys-seo', destination: '/seo/', permanent: true },
-      { source: '/studio-city-seo', destination: '/seo/', permanent: true },
-      // Retired case study -> the work index
-      { source: '/work/the-healing-metta', destination: '/work/', permanent: true },
+      // Sub pages of the previous site
+      to('/web-design', '/#services'),
+      to('/seo', '/#services'),
+      to('/ai-search', '/#ai'),
+      to('/work', '/#work'),
+      to('/work/:path*', '/#work'),
+      to('/about', '/#how'),
+      to('/contact', '/#contact'),
+      to('/thank-you', '/#contact'),
+      to('/blog', '/'),
+      to('/blog/:path*', '/'),
+      // Pages from the older site
+      to('/insights', '/'),
+      to('/glossary', '/'),
+      to('/services', '/#services'),
+      to('/solutions', '/#services'),
+      to('/process', '/#how'),
+      to('/seo-myths', '/#services'),
+      to('/los-angeles-seo', '/#services'),
+      to('/glendale-seo', '/#services'),
+      to('/van-nuys-seo', '/#services'),
+      to('/studio-city-seo', '/#services'),
     ]
   },
 }

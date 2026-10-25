@@ -1,0 +1,408 @@
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": [
+    "ProfessionalService",
+    "LocalBusiness"
+   ],
+   "@id": "https://www.gobiya.com/#organization",
+   "name": "Gobiya",
+   "alternateName": "Gobiya Agency",
+   "url": "https://www.gobiya.com/",
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.gobiya.com/logo.png",
+    "width": 512,
+    "height": 512
+   },
+   "image": "https://www.gobiya.com/og-image.png",
+   "description": "Los Angeles web design and search agency. Gobiya designs, builds and optimizes custom websites for Google, Google Maps and AI search.",
+   "slogan": "Built already. Now make it found.",
+   "foundingDate": "2010",
+   "priceRange": "$$",
+   "telephone": "+1-323-744-1338",
+   "email": "steve@gobiya.com",
+   "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "3580 Wilshire Blvd, Ste 132",
+    "addressLocality": "Los Angeles",
+    "addressRegion": "CA",
+    "postalCode": "90010",
+    "addressCountry": "US"
+   },
+   "hasMap": "https://www.google.com/maps/search/?api=1&query=3580+Wilshire+Blvd+Ste+132+Los+Angeles+CA+90010",
+   "areaServed": [
+    {
+     "@type": "City",
+     "name": "Los Angeles"
+    },
+    {
+     "@type": "Place",
+     "name": "Koreatown, Los Angeles"
+    },
+    {
+     "@type": "AdministrativeArea",
+     "name": "Los Angeles County"
+    }
+   ],
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "telephone": "+1-323-744-1338",
+    "email": "steve@gobiya.com",
+    "areaServed": "US",
+    "availableLanguage": [
+     "English"
+    ]
+   },
+   "openingHoursSpecification": [
+    {
+     "@type": "OpeningHoursSpecification",
+     "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+     ],
+     "opens": "09:00",
+     "closes": "17:00"
+    },
+    {
+     "@type": "OpeningHoursSpecification",
+     "dayOfWeek": "Saturday",
+     "opens": "09:00",
+     "closes": "15:00"
+    }
+   ],
+   "knowsAbout": [
+    "Web design",
+    "Website development",
+    "Local SEO",
+    "Generative engine optimization",
+    "AI search optimization",
+    "Schema.org structured data",
+    "Google Business Profile",
+    "Core Web Vitals"
+   ],
+   "makesOffer": [
+    {
+     "@id": "https://www.gobiya.com/#offer-0"
+    },
+    {
+     "@id": "https://www.gobiya.com/#offer-1"
+    },
+    {
+     "@id": "https://www.gobiya.com/#offer-2"
+    }
+   ],
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Gobiya services",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-0"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-1"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-2"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-3"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-4"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-5"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@id": "https://www.gobiya.com/#service-6"
+      }
+     }
+    ]
+   },
+   "sameAs": [
+    "https://www.facebook.com/profile.php?id=100064043744190"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://www.gobiya.com/#website",
+   "url": "https://www.gobiya.com/",
+   "name": "Gobiya",
+   "inLanguage": "en-US",
+   "publisher": {
+    "@id": "https://www.gobiya.com/#organization"
+   }
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://www.gobiya.com/#webpage",
+   "url": "https://www.gobiya.com/",
+   "name": "Gobiya | Los Angeles Web Design, SEO & AI Search Agency",
+   "description": "Gobiya is a Koreatown, Los Angeles web design agency. We design, build and optimize custom websites for Google, Maps and AI search. Free site review.",
+   "inLanguage": "en-US",
+   "isPartOf": {
+    "@id": "https://www.gobiya.com/#website"
+   },
+   "about": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://www.gobiya.com/og-image.png",
+    "width": 1200,
+    "height": 630
+   },
+   "datePublished": "2026-10-25",
+   "dateModified": "2026-10-25",
+   "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [
+     ".hero-meta",
+     "#faq .qa-a"
+    ]
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-0",
+   "name": "Website design & development",
+   "serviceType": "Website design & development",
+   "description": "Custom sites with clear content, mobile layouts and a direct path to enquire.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-1",
+   "name": "Local SEO",
+   "serviceType": "Local SEO",
+   "description": "Service pages, local business info and Google Business Profile, tuned so nearby customers find you first.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-2",
+   "name": "AI search optimization",
+   "serviceType": "AI search optimization",
+   "description": "Structuring your site so ChatGPT, Perplexity and Google’s AI Overviews can read, trust and cite your business.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-3",
+   "name": "Schema & structured data",
+   "serviceType": "Schema & structured data",
+   "description": "Machine-readable facts about who you are, where you are and what you do, so search engines never have to guess.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-4",
+   "name": "Site speed & Core Web Vitals",
+   "serviceType": "Site speed & Core Web Vitals",
+   "description": "Fast on every phone and every connection, with Core Web Vitals in the green.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-5",
+   "name": "Website content & copywriting",
+   "serviceType": "Website content & copywriting",
+   "description": "Plain-spoken pages your customers actually read and search engines can actually use.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Service",
+   "@id": "https://www.gobiya.com/#service-6",
+   "name": "Website care & support",
+   "serviceType": "Website care & support",
+   "description": "Updates, fixes and holiday hours, handled, with a designer on call when you need one.",
+   "provider": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "areaServed": {
+    "@type": "City",
+    "name": "Los Angeles"
+   }
+  },
+  {
+   "@type": "Offer",
+   "@id": "https://www.gobiya.com/#offer-0",
+   "name": "Free site review",
+   "description": "Review of speed, mobile, local SEO, Google Business Profile and AI-crawler readiness, with a plain-English plan.",
+   "price": "0",
+   "priceCurrency": "USD",
+   "seller": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "url": "https://www.gobiya.com/#pricing",
+   "availability": "https://schema.org/InStock"
+  },
+  {
+   "@type": "Offer",
+   "@id": "https://www.gobiya.com/#offer-1",
+   "name": "Build plan",
+   "description": "One-page custom website with two design rounds, essential SEO set-up and email support.",
+   "price": "999",
+   "priceCurrency": "USD",
+   "seller": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "url": "https://www.gobiya.com/#pricing",
+   "availability": "https://schema.org/InStock",
+   "priceSpecification": {
+    "@type": "UnitPriceSpecification",
+    "price": "999",
+    "priceCurrency": "USD",
+    "unitCode": "MON",
+    "referenceQuantity": {
+     "@type": "QuantitativeValue",
+     "value": 1,
+     "unitCode": "MON"
+    }
+   }
+  },
+  {
+   "@type": "Offer",
+   "@id": "https://www.gobiya.com/#offer-2",
+   "name": "Grow plan",
+   "description": "Multi-page custom website with ongoing local and AI search optimization, schema, Google Business Profile management and 24-hour priority support.",
+   "price": "2499",
+   "priceCurrency": "USD",
+   "seller": {
+    "@id": "https://www.gobiya.com/#organization"
+   },
+   "url": "https://www.gobiya.com/#pricing",
+   "availability": "https://schema.org/InStock",
+   "priceSpecification": {
+    "@type": "UnitPriceSpecification",
+    "price": "2499",
+    "priceCurrency": "USD",
+    "unitCode": "MON",
+    "referenceQuantity": {
+     "@type": "QuantitativeValue",
+     "value": 1,
+     "unitCode": "MON"
+    }
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://www.gobiya.com/#faq",
+   "isPartOf": {
+    "@id": "https://www.gobiya.com/#webpage"
+   },
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What does Gobiya do?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Gobiya is a web design and search agency in Koreatown, Los Angeles. Since 2010 our team has designed, built and optimized custom websites for more than 300 local businesses, so they show up in Google, Google Maps and AI answers from tools like ChatGPT and Perplexity."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What services does Gobiya offer?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "We offer seven services: website design & development (custom sites with clear content, mobile layouts and a direct path to enquire); local seo (service pages, local business info and Google Business Profile, tuned so nearby customers find you first); ai search optimization (structuring your site so ChatGPT, Perplexity and Google’s AI Overviews can read, trust and cite your business); schema & structured data (machine-readable facts about who you are, where you are and what you do, so search engines never have to guess); site speed & core web vitals (fast on every phone and every connection, with Core Web Vitals in the green); website content & copywriting (plain-spoken pages your customers actually read and search engines can actually use); website care & support (updates, fixes and holiday hours, handled, with a designer on call when you need one)."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is AI search optimization?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "AI search optimization, also called GEO or generative engine optimization, is the work of making a business easy for AI assistants to find, trust and cite. We add structured data, publish clear facts about your services and location, write answers AI can quote, and make sure AI crawlers are allowed to read your site."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What does the free site review include?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The free review checks your current site’s speed and mobile experience, your local SEO and Google Business Profile, and whether AI crawlers can read your site. You get a plain-English plan of what to fix, with no obligation to hire us."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does a website from Gobiya cost?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The site review is free. Our Build plan, a one-page website with essential SEO set-up, starts at $999 a month. Our Grow plan, a multi-page site with ongoing local and AI search optimization, starts at $2,499 a month. There are no long-term contracts, and annual billing saves 30%."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where is Gobiya located?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Gobiya is at 3580 Wilshire Blvd, Suite 132, Los Angeles, CA 90010, in Koreatown. We’re open Monday to Friday 9am–5pm and Saturday 9am–3pm. Call 323-744-1338 or email steve@gobiya.com."
+     }
+    }
+   ]
+  }
+ ]
+}

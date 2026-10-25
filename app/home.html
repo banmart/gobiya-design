@@ -1,0 +1,381 @@
+<!-- shared SVG paint servers + filters (used by every generated card face) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false" id="defs">
+  <defs>
+    <radialGradient id="gGlow1" cx=".5" cy=".58" r=".75"><stop offset="0" stop-color="#ffe0a8"/><stop offset=".22" stop-color="#ff8a2e"/><stop offset=".55" stop-color="#c2310f"/><stop offset="1" stop-color="#140806"/></radialGradient>
+    <linearGradient id="gGlow2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffb04a"/><stop offset=".4" stop-color="#7a2a10"/><stop offset="1" stop-color="#08080e"/></linearGradient>
+    <linearGradient id="gGlow3" x1="0" y1="0" x2="1" y2=".6"><stop offset="0" stop-color="#2a1a5a"/><stop offset=".3" stop-color="#fff"/><stop offset=".5" stop-color="#7aa0ff"/><stop offset=".72" stop-color="#ff8a3c"/><stop offset="1" stop-color="#1a0a1e"/></linearGradient>
+    <radialGradient id="gSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd9a0"/><stop offset=".6" stop-color="#ff8a3c"/><stop offset="1" stop-color="#e8321e"/></radialGradient>
+    <radialGradient id="gOrbR" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff6a3c" stop-opacity=".95"/><stop offset=".5" stop-color="#e8321e" stop-opacity=".45"/><stop offset="1" stop-color="#e8321e" stop-opacity="0"/></radialGradient>
+    <radialGradient id="gOrbB" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#6f86ff" stop-opacity=".95"/><stop offset=".5" stop-color="#2f4dff" stop-opacity=".45"/><stop offset="1" stop-color="#2f4dff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gChrome" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#050507"/><stop offset=".28" stop-color="#8a909c"/><stop offset=".42" stop-color="#f4f6fa"/><stop offset=".58" stop-color="#2a2c33"/><stop offset=".78" stop-color="#c8ccd6"/><stop offset="1" stop-color="#050507"/></linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f4dff"/><stop offset=".6" stop-color="#6a3dff"/><stop offset="1" stop-color="#ff6a3c"/></linearGradient>
+    <radialGradient id="gMarkW" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#f1f1f4"/><stop offset="1" stop-color="#b4b4bd"/></radialGradient>
+    <radialGradient id="gMarkK" cx=".38" cy=".34" r=".72"><stop offset="0" stop-color="#6b6b73"/><stop offset=".45" stop-color="#26262a"/><stop offset="1" stop-color="#000"/></radialGradient>
+    <radialGradient id="gMarkHalo" cx=".5" cy=".5" r=".5"><stop offset=".55" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gHero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6a3c"/><stop offset="1" stop-color="#2f4dff"/></linearGradient>
+    <!-- motion smear: horizontal blur + red/cyan channel split, driven by scroll velocity -->
+    <filter id="fSmear" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0 0" result="b" id="smBlur"/>
+      <feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+      <feOffset in="r" dx="0" dy="0" result="ro" id="smR"/>
+      <feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="gb"/>
+      <feOffset in="gb" dx="0" dy="0" result="gbo" id="smG"/>
+      <feBlend in="ro" in2="gbo" mode="screen"/>
+    </filter>
+    <!-- prism: RGB split, amount driven by the slider -->
+    <filter id="fPrism" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+      <feOffset in="r" dx="8" dy="0" result="ro" id="prR"/>
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g"/>
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="bl"/>
+      <feOffset in="bl" dx="-8" dy="0" result="bo" id="prB"/>
+      <feBlend in="ro" in2="g" mode="screen" result="rg"/>
+      <feBlend in="rg" in2="bo" mode="screen"/>
+    </filter>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================ LOADER ============================ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="ld-fan" id="ldFan"></div>
+  <div class="ld-num" id="ldNum">0</div>
+  <div class="ld-cap">Gobiya — web design that gets found</div>
+</div>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Gobiya — home"><span class="mark mark-neon"><img src="/gobiya-logo-neon-black-sm.webp" alt="" width="128" height="128" decoding="async"></span><span>gobiya</span></a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#work">Work</a>
+    <a href="#how">How we work</a>
+    <a href="#words">Reviews</a>
+    <a href="#ai">AI search</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav-r">
+    <a class="nav-call" href="tel:+13237441338">323-744-1338</a>
+    <button class="btn sm" type="button" data-open-review>Free review</button>
+    <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <div>
+    <a class="m" href="#work"><span style="--i:0">Work</span></a>
+    <a class="m" href="#how"><span style="--i:1">How we work</span></a>
+    <a class="m" href="#words"><span style="--i:2">Reviews</span></a>
+    <a class="m" href="#ai"><span style="--i:3">AI search</span></a>
+    <a class="m" href="#pricing"><span style="--i:4">Pricing</span></a>
+    <a class="m" href="#contact"><span style="--i:5">Contact</span></a>
+  </div>
+  <div>
+    <a class="btn lg" href="#" data-open-review>Get your free review</a>
+    <small>steve@gobiya.com · 323-744-1338 · Los Angeles</small>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top" aria-label="Gobiya — introduction">
+  <div class="scatter" id="heroScatter" aria-hidden="true"></div>
+  <p class="hero-h" data-split>
+    <span class="hl hl-l">Built <br>already</span>
+    <span class="hl hl-r">Now make <br>it <span class="w rot" data-words="found|cited|chosen|booked|called" style="--i:5"><i>(found)</i></span></span>
+  </p>
+  <p class="cap c1" data-r style="--d:900">Gobiya turns good-looking websites into found-everywhere ones — Google, Maps and AI search — without the agency runaround.</p>
+  <p class="cap c2" data-r style="--d:1050">Our team designs it, builds it and gets it found. You keep running your business.</p>
+  <p class="cap c3" data-r style="--d:1200">Free site review. No contract.</p>
+  <h1 class="hero-meta" data-r style="--d:250"><i></i>Los Angeles web design, SEO &amp; AI search agency · Since 2010</h1>
+</section>
+
+<!-- ======================== START WITH THE GOOD PART ======================== -->
+<section class="wallsec" id="work" aria-label="Page patterns">
+  <div class="wall" aria-hidden="true">
+    <div class="wall-stage"><div class="wall-3d" id="wall3d"></div></div>
+  </div>
+  <div class="wall-copy">
+    <h2 class="h2" data-split>Start with the good part</h2>
+    <div class="stag">
+      <p class="p" data-r>300+ local businesses since 2010. We design every page from patterns we’ve proven with clients like you.</p>
+      <p class="p" data-r style="--d:120">You tell us about the business. We handle the design, the writing and the launch.</p>
+    </div>
+    <a class="btn" href="#services">See what we build</a>
+  </div>
+</section>
+
+<!-- ======================== CAPABILITIES (card cloud) ======================== -->
+<section class="cats" id="services" aria-label="What we do" style="--n:7">
+  <div class="cats-in">
+    <div class="cats-l">
+      <h2 class="eye" data-r>What we do for you</h2>
+      <div class="ruler" aria-hidden="true"><i></i></div>
+      <ul class="cats-list" id="catsList">
+        <li data-lay="grid" data-desc="Custom sites with clear content, mobile layouts and a direct path to enquire."><button type="button"><span class="a">→</span><span>Websites</span></button></li>
+        <li data-lay="rows" data-desc="Service pages, local business info and Google Business Profile — tuned so nearby customers find you first."><button type="button"><span class="a">→</span><span>Local SEO</span></button></li>
+        <li data-lay="ring" data-desc="Structured so ChatGPT, Perplexity and Google’s AI Overviews can read, trust and cite your business."><button type="button"><span class="a">→</span><span>AI search</span></button></li>
+        <li data-lay="field" data-desc="Machine-readable facts — who you are, where you are, what you do — so search engines never have to guess."><button type="button"><span class="a">→</span><span>Schema</span></button></li>
+        <li data-lay="carousel" data-desc="Fast on every phone and every connection. Core Web Vitals in the green."><button type="button"><span class="a">→</span><span>Speed</span></button></li>
+        <li data-lay="reveal" data-desc="Plain-spoken pages your customers actually read — and search engines can actually use."><button type="button"><span class="a">→</span><span>Content</span></button></li>
+        <li data-lay="pile" data-desc="Updates, fixes and holiday hours, handled. A designer on call when you need one."><button type="button"><span class="a">→</span><span>Care</span></button></li>
+      </ul>
+      <p class="cats-desc p" id="catsDesc" aria-live="polite"><b>01 / 07</b>Custom sites with clear content, mobile layouts and a direct path to enquire.</p>
+    </div>
+    <div class="cats-stage" id="catsStage" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ======================== DECK / MARQUEE ======================== -->
+<section class="deck" id="deck" aria-label="Skip the template">
+  <div class="deck-cards" id="deckCards" aria-hidden="true"></div>
+  <p class="deck-line" id="deckLine">Skip the template. Kill the (cookie‑cutter) look.</p>
+</section>
+
+<!-- ======================== HOW IT WORKS (sticky editor) ======================== -->
+<section class="how" id="how" aria-label="How we work" style="--n:3">
+  <div class="how-in">
+    <div class="how-panel">
+      <div class="panel" id="stepsPanel"><div class="ed-wrap" id="edA" aria-hidden="true"></div></div>
+      <div class="ruler" aria-hidden="true" id="stepsRuler"><i></i></div>
+    </div>
+    <div class="how-r">
+    <h2 class="eye" data-r>How we work</h2>
+    <ol class="steps" id="steps">
+      <li class="step on"><span class="pill">01</span><h3>We learn your business</h3><p>A free site review, then a call about your customers, services and goals. We pick the right page patterns for you.</p></li>
+      <li class="step"><span class="pill">02</span><h3>We design and write it</h3><p>Our designers and writers build custom pages in your voice. You review each round; we refine until it’s right.</p></li>
+      <li class="step"><span class="pill">03</span><h3>We make it findable</h3><p>Our SEO team adds schema, local data and AI-readable facts under the hood, then launches and keeps it current.</p></li>
+    </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== YOURS ======================== -->
+<section class="yours" aria-label="Make it yours">
+  <div class="panel yours-panel" id="cmpPanel">
+    <div class="cmp" id="cmp" aria-label="Template site versus a site designed by Gobiya — drag to compare" role="img">
+      <div class="cmp-l"><div class="t-site"><div class="bar"><i></i><i></i><i></i></div><h5>Welcome to our website</h5><div class="ln"></div><div class="ln" style="width:70%"></div><div class="ph"></div><div class="row"><i></i><i></i><i></i></div><span class="b">Contact us</span></div></div>
+      <div class="cmp-r" id="cmpR"><div class="y-site"><div class="bar"><b><i></i>gobiya</b><span></span></div><h5>Family dental care, <em>found.</em></h5><p class="sub">Koreatown’s dentist, easy to find, easy to book.</p><span class="cta">Book a visit</span><div class="fan" id="cmpFan"></div><div class="chips"><span>Local ✓</span><span>AI ✓</span><span>Fast ✓</span></div></div></div>
+      <span class="cmp-tag l">Template</span><span class="cmp-tag r">By Gobiya</span>
+      <div class="cmp-h" id="cmpH"><b><svg viewBox="0 0 18 18" fill="none" stroke="#1d1d1f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5L2 9l4 4M12 5l4 4-4 4"/></svg></b></div>
+    </div>
+  </div>
+  <h2 class="yours-h" data-split>
+    <span class="l1"><span class="arw">→</span> Start from <br>something <br>proven</span>
+    <span class="l2">then <br>make it <br>unmistakably <br>(yours)</span>
+  </h2>
+</section>
+
+<!-- ======================== DISTORT ======================== -->
+<section class="distort" id="distort" aria-label="Distortion playground">
+  <div class="dz-fx" id="dzFx"><div class="dz-persp"><div class="dz-wall" id="dzWall"></div></div></div>
+  <div class="dz-flare" id="dzFlare" aria-hidden="true"></div>
+  <h2 class="dz-title" data-split>Distort the <br>(ordinary)</h2>
+  <div class="dz-ctrl">
+    <div class="seg" id="dzMode" role="group" aria-label="Effect">
+      <span class="thumb" aria-hidden="true"></span>
+      <button type="button" data-v="off" aria-pressed="false">Off</button>
+      <button type="button" data-v="flare" aria-pressed="false">Flare</button>
+      <button type="button" data-v="prism" aria-pressed="true">Prism</button>
+      <button type="button" data-v="bend" aria-pressed="false">Bend</button>
+    </div>
+    <label class="dzamt"><span class="trk"><span class="fill" id="dzFill"></span><span class="lbl">Amount</span><input type="range" min="0" max="300" value="208" id="dzAmt" aria-label="Effect amount"></span><output id="dzOut">208%</output></label>
+  </div>
+</section>
+
+<!-- ======================== AI SEARCH ======================== -->
+<section class="ai" id="ai" aria-label="AI search">
+  <div class="ai-top">
+    <h2 class="h2" data-split>Be the answer in <br><span class="arw">→</span> AI search</h2>
+    <div class="stag ai-copy">
+      <p class="p" data-r>Customers now ask ChatGPT, Gemini and Perplexity who to call.</p>
+      <p class="p" data-r style="--d:120">Our team structures your site so AI can read it, trust it and cite it. We handle the facts, the schema and the crawler settings.</p>
+    </div>
+  </div>
+  <div class="pills" id="aiPills" aria-hidden="true">
+    <span class="fp" style="--x:2%;--y:18px;--r:-3deg;--t:6.4s"><i style="--c:#10a37f">✦</i>ChatGPT</span>
+    <span class="fp" style="--x:15%;--y:74px;--r:5deg;--t:5.6s;--dl:-1s"><i style="--c:#1f8ea3">✦</i>Perplexity</span>
+    <span class="fp" style="--x:34%;--y:6px;--r:-2deg;--t:7s;--dl:-2s"><i style="--c:#4a6cf7">✦</i>Gemini</span>
+    <span class="fp" style="--x:49%;--y:70px;--r:4deg;--t:6s;--dl:-3s"><i style="--c:#d97757">✦</i>Claude</span>
+    <span class="fp" style="--x:66%;--y:14px;--r:-5deg;--t:5.8s;--dl:-1.5s"><i style="--c:#111">✦</i>AI Overviews</span>
+    <span class="fp" style="--x:82%;--y:78px;--r:3deg;--t:6.8s;--dl:-2.5s"><i style="--c:#0f6cbd">✦</i>Copilot</span>
+  </div>
+  <div class="ai-row">
+    <div class="chat" id="chat">
+      <div class="chat-h"><span class="mark"><img src="/gobiya-mark-sm.webp" alt="" width="199" height="256" loading="lazy" decoding="async"></span>gobiya <span class="x">×</span> AI <span class="st">Cited</span></div>
+      <div class="chat-b">
+        <div class="sk" aria-hidden="true"><i></i><i></i></div>
+        <div class="bub" id="chatQ">Who builds good websites for small businesses in Los Angeles?</div>
+        <div class="ans" id="chatA">
+          <div class="av" aria-hidden="true" id="chatAv"></div>
+          <div><small>assistant · answer</small><div class="txt" id="chatTxt"></div><div class="src" id="chatSrc"><span class="hot">gobiya.com ↗</span><span>Maps</span><span>Reviews</span></div></div>
+        </div>
+      </div>
+      <div class="chat-f"><div class="chat-in"><span class="ph" id="chatPh">Ask a follow-up…</span><button type="button" aria-label="Send"><svg viewBox="0 0 14 14" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 3v4.5h-8M6 5l-2.5 2.5L6 10"/></svg></button></div></div>
+      <div class="chat-note">Illustrative example</div>
+    </div>
+    <div class="panel ai-panel" id="aiPanel">
+      <div class="ed-wrap" id="edB" aria-hidden="true"></div>
+      <div class="agent-sel" id="agSel"></div>
+      <div class="agent-cur" id="agCur" style="--cx:70%;--cy:78%"><svg viewBox="0 0 16 16"><path d="M2 1l11 5.5-4.6 1.4L6.8 12.6z"/></svg><span><b>✦</b>Gobiya SEO team</span></div>
+      <div class="agent-toast" id="agToast"><span id="agMsg">Your Gobiya team added LocalBusiness schema to Home</span> <u>Approve</u></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== DEVICES ======================== -->
+<section class="devices" id="devices" aria-label="Every device">
+  <div class="phones" id="phones" aria-hidden="true">
+    <div class="ph3d" data-ry="158" data-rx="-6"></div>
+    <div class="ph3d" data-ry="-8" data-rx="0"></div>
+    <div class="ph3d" data-ry="-72" data-rx="4"></div>
+  </div>
+  <div class="dev-row">
+    <h2 class="h2" data-split>On every <br><span class="arw">→</span> device</h2>
+    <div class="dev-ph" aria-hidden="true"><div class="ph3d" id="phHero" data-ry="-10" data-rx="0"></div></div>
+    <div class="dev-copy">
+      <p class="p" data-r>We design mobile-first and test on real phones, tablets and laptops, not just a resized browser window.</p>
+      <p class="p" data-r style="--d:120">Every site we ship is fast on any connection, accessible by default and easy to tap with a thumb.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================== SEND IT OUT ======================== -->
+<section class="send" id="send" aria-label="Show up everywhere">
+  <div class="send-l">
+    <h2 class="h2" data-split>We build it once. <br><span class="arw">→</span> You show up everywhere</h2>
+    <div class="chiprows">
+      <div class="chiprow"><div class="seg" id="segRatio" role="group" aria-label="Frame"><span class="thumb" aria-hidden="true"></span>
+        <button type="button" data-v="0.75" aria-pressed="false">3:4</button><button type="button" data-v="0.8" aria-pressed="false">4:5</button><button type="button" data-v="0.5625" aria-pressed="true">9:16</button><button type="button" data-v="1" aria-pressed="false">1:1</button><button type="button" data-v="1.3333" aria-pressed="false">4:3</button><button type="button" data-v="1.7778" aria-pressed="false">16:9</button></div></div>
+      <div class="chiprow">
+        <div class="seg" id="segWhere" role="group" aria-label="Where"><span class="thumb" aria-hidden="true"></span>
+          <button type="button" data-v="search" aria-pressed="false">Search</button><button type="button" data-v="maps" aria-pressed="false">Maps</button><button type="button" data-v="ai" aria-pressed="true">AI</button><button type="button" data-v="social" aria-pressed="false">Social</button></div>
+        <div class="seg" id="segLoad" role="group" aria-label="Load time"><span class="thumb" aria-hidden="true"></span>
+          <button type="button" data-v="28" aria-pressed="false">3s</button><button type="button" data-v="18" aria-pressed="false">2s</button><button type="button" data-v="11" aria-pressed="true">1s</button><button type="button" data-v="6" aria-pressed="false">0.5s</button></div>
+        <span class="note">Mobile &amp; desktop</span>
+      </div>
+    </div>
+    <div class="send-copy">
+      <p class="p" data-r>We build for the places customers look: search results, maps, AI answers and the phone in their hand.</p>
+      <p class="p" data-r style="--d:120">We structure it once for every surface, and tune it so nobody waits.</p>
+    </div>
+  </div>
+  <div class="send-r" id="sendR" aria-hidden="true">
+    <div class="fr-ghost" id="ghostA"></div><div class="fr-ghost" id="ghostB"></div>
+    <div class="frame" id="frame"><span class="frame-tag" id="frameTag">AI answer · 9:16</span><div class="ring-wrap"><div class="ring" id="ring"></div></div></div>
+  </div>
+</section>
+
+<!-- ======================== WORDS (testimonials) ======================== -->
+<section class="words" id="words" aria-labelledby="wordsH">
+  <div class="words-top">
+    <h2 class="h2" id="wordsH" data-split>In our clients’ <br><span class="arw">(words)</span></h2>
+    <div class="stag">
+      <p class="p" data-r>300+ local businesses since 2010. Most of them found us the way your customers will find you: by asking around.</p>
+      <p class="p" data-r style="--d:120">One dental practice went from 5 to more than 15 appointments a day within 45 days.</p>
+    </div>
+  </div>
+  <div class="quotes">
+    <figure class="quote" data-r style="--d:0"><p class="stars" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></p><h3>You increased my traffic in just 2 days!</h3><blockquote><p>“You did an amazing job on my website and you increased my traffic in just 2 days of being live. I am so happy. I love love love my website.”</p></blockquote><figcaption><i aria-hidden="true">NB</i><span>Nicole Brown<small>E-Commerce Founder</small></span></figcaption></figure>
+    <figure class="quote" data-r style="--d:100"><p class="stars" aria-label="5 out of 5 stars"><span aria-hidden="true">★★★★★</span></p><h3>All of our marketing goals were met with one source.</h3><blockquote><p>“Wow great work ethic, extremely proficient and professional. All of our marketing goals were met with one source and I continuously brag about my service and encourage any/every business owner I’m in contact with. These people really help my business blossom and have done a tremendous job getting us to our customers. On top of the phenomenal job they have produced, they remain helpful and are easy to get a hold of for any of my questions.”</p></blockquote><figcaption><i aria-hidden="true">GR</i><span>Ghost Rogue<small>Local Business Owner</small></span></figcaption></figure>
+    <figure class="quote" data-r style="--d:200"><h3>Great work and transparent pricing.</h3><blockquote><p>“These guys did real quality work for me and my company’s websites. I would recommend them to anybody. Steve took all the load off our developers’ shoulders and we let his SEO magic work on our sites. Rank is up, business is up, and more revenue is coming in. Thanks Gobiya.”</p></blockquote><figcaption><i aria-hidden="true">JL</i><span>Jeremy Littlefield<small>Marketing Director</small></span></figcaption></figure>
+  </div>
+</section>
+
+<!-- ======================== PRICING ======================== -->
+<section class="pricing" id="pricing" aria-labelledby="priceH">
+  <h2 class="h2" id="priceH" data-split>Know what to fix before you spend a dollar</h2>
+  <p class="p sub" data-r>Start with a free site review. We’ll tell you what to fix, and you decide what to hire us for.</p>
+  <div class="seg" id="billing" role="group" aria-label="Billing period" data-r><span class="thumb" aria-hidden="true"></span>
+    <button type="button" data-v="monthly" aria-pressed="true">Monthly</button><button type="button" data-v="yearly" aria-pressed="false">Yearly<em>−30%</em></button></div>
+  <!-- NOTE: prices below are placeholders — edit data-m (monthly USD) to your real rates. -->
+  <div class="plans">
+    <article class="plan" data-r>
+      <span class="lb">Review</span><h3>Just look</h3>
+      <div class="price"><span class="amt" data-m="0">$0</span></div><div class="bill">No obligation</div>
+      <ul><li>We review your current site</li><li>Speed &amp; mobile check</li><li>Local SEO &amp; Google Business Profile check</li><li>AI-crawler readiness</li><li>A plain-English plan from our team</li></ul>
+      <a class="btn line" href="#" data-open-review>Get my free review</a>
+    </article>
+    <article class="plan" data-r style="--d:100">
+      <span class="lb">Build</span><h3>Get it built</h3>
+      <div class="price"><span class="amt" data-m="999">$999</span><span class="per">/ month</span></div><div class="bill" data-bill>Billed monthly</div>
+      <ul><li>We design &amp; build a one-page site</li><li>Two design rounds with our team</li><li>Essential SEO set-up</li><li>Mobile-first, fast by default</li><li>Email support from your designer</li></ul>
+      <a class="btn line" href="#contact">Hire us to build</a>
+    </article>
+    <article class="plan pro" data-r style="--d:200">
+      <span class="lb">Grow</span><h3>Get it found</h3>
+      <div class="price"><span class="amt" data-m="2499">$2,499</span><span class="per">/ month</span></div><div class="bill" data-bill>Billed monthly</div>
+      <ul><li>We design &amp; build a multi-page site</li><li>Ongoing local + AI search optimization</li><li>Schema &amp; structured data, done for you</li><li>We manage your Google Business Profile</li><li>Priority support (24h)</li></ul>
+      <a class="btn" href="#contact">Hire us to grow</a>
+    </article>
+  </div>
+  <p class="fine" data-r>Prices in USD. Taxes added where applicable. No long-term contracts. The free review has no obligation — <u>we’ll tell you honestly</u> what’s worth fixing and what isn’t.</p>
+</section>
+
+<!-- ======================== FAQ ======================== -->
+<section class="faq" id="faq" aria-labelledby="faqH">
+  <div class="faq-l">
+    <h2 class="h2" id="faqH" data-split>Questions, <span class="arw">(answered)</span></h2>
+    <p class="p" data-r>Straight answers about our services, pricing and where to find us. Still curious? Call <a href="tel:+13237441338">323-744-1338</a>.</p>
+  </div>
+  <div class="faq-r" data-r>
+      <details class="qa" open><summary><h3>What does Gobiya do?</h3><span class="pm" aria-hidden="true"></span></summary><p class="qa-a">Gobiya is a web design and search agency in Koreatown, Los Angeles. Since 2010 our team has designed, built and optimized custom websites for more than 300 local businesses, so they show up in Google, Google Maps and AI answers from tools like ChatGPT and Perplexity.</p></details>
+      <details class="qa"><summary><h3>What services does Gobiya offer?</h3><span class="pm" aria-hidden="true"></span></summary><p class="qa-a">We offer seven services: website design &amp; development (custom sites with clear content, mobile layouts and a direct path to enquire); local seo (service pages, local business info and Google Business Profile, tuned so nearby customers find you first); ai search optimization (structuring your site so ChatGPT, Perplexity and Google’s AI Overviews can read, trust and cite your business); schema &amp; structured data (machine-readable facts about who you are, where you are and what you do, so search engines never have to guess); site speed &amp; core web vitals (fast on every phone and every connection, with Core Web Vitals in the green); website content &amp; copywriting (plain-spoken pages your customers actually read and search engines can actually use); website care &amp; support (updates, fixes and holiday hours, handled, with a designer on call when you need one).</p></details>
+      <details class="qa"><summary><h3>What is AI search optimization?</h3><span class="pm" aria-hidden="true"></span></summary><p class="qa-a">AI search optimization, also called GEO or generative engine optimization, is the work of making a business easy for AI assistants to find, trust and cite. We add structured data, publish clear facts about your services and location, write answers AI can quote, and make sure AI crawlers are allowed to read your site.</p></details>
+      <details class="qa"><summary><h3>What does the free site review include?</h3><span class="pm" aria-hidden="true"></span></summary><p class="qa-a">The free review checks your current site’s speed and mobile experience, your local SEO and Google Business Profile, and whether AI crawlers can read your site. You get a plain-English plan of what to fix, with no obligation to hire us.</p></details>
+      <details class="qa"><summary><h3>How much does a website from Gobiya cost?</h3><span class="pm" aria-hidden="true"></span></summary><p class="qa-a">The site review is free. Our Build plan, a one-page website with essential SEO set-up, starts at $999 a month. Our Grow plan, a multi-page site with ongoing local and AI search optimization, starts at $2,499 a month. There are no long-term contracts, and annual billing saves 30%.</p></details>
+      <details class="qa"><summary><h3>Where is Gobiya located?</h3><span class="pm" aria-hidden="true"></span></summary><p class="qa-a">Gobiya is at 3580 Wilshire Blvd, Suite 132, Los Angeles, CA 90010, in Koreatown. We’re open Monday to Friday 9am–5pm and Saturday 9am–3pm. Call 323-744-1338 or email steve@gobiya.com.</p></details>
+      </div>
+</section>
+
+<!-- ======================== CTA ======================== -->
+<section class="cta" id="contact" aria-label="Get started">
+  <div class="scatter" id="ctaScatter" aria-hidden="true"></div>
+  <div class="cta-in">
+    <h2 class="cta-h" data-split>Show us your site. <br>See where it (ranks)</h2>
+    <p class="cta-s" data-r>We do the work. No contract, no jargon, nothing to prepare first.</p>
+    <div class="cta-b" data-r style="--d:120"><button type="button" class="btn lg" data-open-review>Get my free review</button><a class="btn lg light" href="#services">See what we build</a></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="foot" id="footer">
+  <div class="foot-top">
+    <div><p class="foot-tag">Found before <br>they ask</p><a href="mailto:steve@gobiya.com">steve@gobiya.com</a></div>
+    <div><h4>Studio</h4><ul><li><a href="#services">Web design</a></li><li><a href="#services">SEO</a></li><li><a href="#ai">AI search</a></li><li><a href="#work">Work</a></li><li><a href="#words">Reviews</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div><h4>Follow</h4><ul><li><a href="https://www.facebook.com/profile.php?id=100064043744190" target="_blank" rel="noopener noreferrer">Facebook ↗</a></li><li><a href="mailto:steve@gobiya.com">steve@gobiya.com</a></li><li><a href="tel:+13237441338">323-744-1338</a></li></ul></div>
+    <div><h4>Visit</h4><address><ul><li><span>3580 Wilshire Blvd, Ste 132 <br>Los Angeles, CA 90010</span></li><li><a href="tel:+13237441338">323-744-1338</a></li><li><span>Mon–Fri 9–5 · Sat 9–3</span></li></ul></address></div>
+  </div>
+  <div class="foot-big" aria-hidden="true"><div class="foot-ico"><img src="/gobiya-logo-white-black-sm.webp" alt="" width="600" height="600" loading="lazy" decoding="async"></div><div class="foot-word-w"><div class="foot-word" id="footWord"><span style="--i:0">g</span><span style="--i:1">o</span><span style="--i:2">b</span><span style="--i:3">i</span><span style="--i:4">y</span><span style="--i:5">a</span></div></div></div>
+  <div class="foot-base"><span>© 2026 Gobiya Agency · Updated <time datetime="2026-10-25">October 2026</time></span><button type="button" class="keep" id="keep" data-open-review>Keep scrolling to start your free review <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 1.5v9M2.5 7L6 10.5 9.5 7"/></svg></button><span>Koreatown, Los Angeles</span></div>
+</footer>
+
+<!-- ============================ REVIEW OVERLAY ============================ -->
+<div class="review" id="review" role="dialog" aria-modal="true" aria-label="Free site review" aria-hidden="true">
+  <button class="rv-close" id="rvClose" type="button" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke-linecap="round"><path d="M2 2l12 12M14 2L2 14"/></svg></button>
+  <div class="rv-in">
+    <div>
+      <h2 class="rv-h">Show us <br>your site.</h2>
+      <div class="rv-meta"><div><b>Call</b><a href="tel:+13237441338">323-744-1338</a></div><div><b>Email</b><a href="mailto:steve@gobiya.com">steve@gobiya.com</a></div><div><b>Visit</b>3580 Wilshire Blvd, Ste 132 <br>Los Angeles, CA 90010</div><div><b>Hours</b>Mon–Fri 9–5 <br>Sat 9–3</div></div>
+    </div>
+    <form class="rv-form" id="rvForm" action="/api/review/" method="post" novalidate>
+      <div class="fld"><input id="rv-url" name="website" placeholder=" " autocomplete="url" inputmode="url" required maxlength="500"><label for="rv-url">Your website</label></div>
+      <div class="fld"><input id="rv-name" name="fullName" placeholder=" " autocomplete="name" required maxlength="150"><label for="rv-name">Your name</label></div>
+      <div class="fld"><input id="rv-phone" name="phone" type="tel" placeholder=" " autocomplete="tel" required maxlength="50"><label for="rv-phone">Phone</label></div>
+      <div class="fld"><input id="rv-mail" name="email" type="email" placeholder=" " autocomplete="email" required maxlength="254"><label for="rv-mail">Email address</label></div>
+      <div class="fld"><textarea id="rv-msg" name="message" rows="2" placeholder=" " maxlength="2000"></textarea><label for="rv-msg">Anything we should know?</label><small>Optional</small></div>
+      <button type="submit" class="btn lg">Send my review request</button>
+      <p class="rv-status" id="rvStatus" role="status" aria-live="polite"></p>
+    </form>
+    <div class="rv-done" id="rvDone" tabindex="-1">
+      <h3>Got it. Thank you.</h3>
+      <p>Your request is with Steve. We’ll look at your site and reply using the details you gave us, usually within one business day.</p>
+      <p>Need us sooner? Call <a href="tel:+13237441338">323-744-1338</a>.</p>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

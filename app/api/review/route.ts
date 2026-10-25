@@ -22,6 +22,11 @@ export async function POST(request: Request) {
     const value = fields[name]
     if (typeof value !== 'string' || !value.trim() || value.length > limit || /[\r\n\x00]/.test(value)) return failure(400)
   }
+  // Optional free-text note from the homepage review form.
+  const rawMessage = fields.message ?? ''
+  if (typeof rawMessage !== 'string' || rawMessage.length > 2000 || /\x00/.test(rawMessage)) return failure(400)
+  const message = rawMessage.trim()
+
   const fullName = (fields.fullName as string).trim()
   const phone = (fields.phone as string).trim()
   const email = (fields.email as string).trim()
@@ -37,6 +42,7 @@ export async function POST(request: Request) {
   if (!apiKey) return failure(503)
 
   const text = `New website review request\n\nFull Name: ${fullName}\nPhone: ${phone}\nWebsite: ${website}\nEmail: ${email}\n`
+    + (message ? `\nMessage:\n${message}\n` : '')
   // Retrying the same submission must not send duplicate emails (Resend retains keys for 24 hours).
   const idempotencyKey = createHash('sha256').update(text).digest('hex')
   try {
