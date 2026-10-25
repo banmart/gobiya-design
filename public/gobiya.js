@@ -393,31 +393,94 @@ async function runChat(){
 }
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){runChat();o.disconnect()}}),{threshold:.4}).observe($('#chat'));
 
-/* agent: a cursor that walks the editor and makes changes */
-const aiPanel=$('#aiPanel'),edB=buildEditor($('#edB'),1300),agCur=$('#agCur'),agSel=$('#agSel'),agToast=$('#agToast'),agMsg=$('#agMsg');
-edB.dataset.step='1';$('.tx',edB).textContent=HEAD;edB.classList.add('filled');
-const AGENT=[
-  ['.ep-hero h4','Your Gobiya writer rewrote the Home headline for “dentist near me”',ed=>{$('.tx',ed).textContent='Koreatown’s dentist, found.'}],
-  ['.g-seo .ed-row:nth-of-type(1)','Your Gobiya team added LocalBusiness schema to Home',ed=>{$$('.ed-tg',ed)[0].classList.add('on');$$('.ep-foot span',ed)[0].classList.add('on');ed.dataset.step='2'}],
-  ['.ep-foot','Your Gobiya team added FAQ answers AI can quote',ed=>{$$('.ed-tg',ed)[1].classList.add('on');$$('.ep-foot span',ed)[1].classList.add('on')}],
-  ['.ed-film','Your Gobiya developer sped up Home: loads in 1.1s',ed=>{$$('.ed-tg',ed)[3].classList.add('on');$$('.ep-foot span',ed)[2].classList.add('on')}]
+/* =====================================================================
+   SERP — a search types itself, then the AI answer, map pack, top result
+   and business panel appear, all pointing to Gobiya (illustrative)
+   ===================================================================== */
+const SI={
+ search:'<svg viewBox="0 0 16 16" fill="none" stroke="#86868b" stroke-width="1.7" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>',
+ lock:'<svg viewBox="0 0 10 10" fill="#86868b"><rect x="1.5" y="4.4" width="7" height="5" rx="1.2"/><path d="M3 4.6V3.4a2 2 0 014 0v1.2" fill="none" stroke="#86868b" stroke-width="1.1"/></svg>',
+ mic:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="5" y="1.5" width="4" height="7" rx="2"/><path d="M3 7a4 4 0 008 0M7 11v2"/></svg>',
+ lens:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="1.5" width="11" height="11" rx="3"/><circle cx="7" cy="7" r="2.4"/></svg>'
+};
+const pin=(x,y,s,c)=>`<path d="M${x} ${y-s*1.9}c-${s*.62} 0-${s*1.1} ${s*.5}-${s*1.1} ${s*1.05} 0 ${s*.82} ${s*1.1} ${s*1.8} ${s*1.1} ${s*1.8}s${s*1.1}-${s*.98} ${s*1.1}-${s*1.8}c0-${s*.55}-${s*.48}-${s*1.05}-${s*1.1}-${s*1.05}z" fill="${c}"/><circle cx="${x}" cy="${y-s*.85}" r="${s*.38}" fill="#fff"/>`;
+const srMap=(w,h)=>`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice"><rect width="${w}" height="${h}" fill="#e9eef0"/><path d="M0 ${h*.74} C${w*.25} ${h*.55} ${w*.4} ${h*.92} ${w} ${h*.64} L${w} ${h} L0 ${h}Z" fill="#bcd7f0"/><rect x="${w*.1}" y="${h*.12}" width="${w*.22}" height="${h*.4}" rx="8" fill="#cfe8d4"/><g stroke="#fff" stroke-linecap="round"><path d="M-10 ${h*.36} L${w+10} ${h*.2}" stroke-width="9"/><path d="M${w*.36} -10 L${w*.41} ${h+10}" stroke-width="7"/><path d="M${w*.68} -10 L${w*.64} ${h+10}" stroke-width="9"/><path d="M-10 ${h*.64} L${w+10} ${h*.55}" stroke-width="5"/></g>${pin(w*.25,h*.66,9,'#9a9aa2')}${pin(w*.8,h*.42,9,'#9a9aa2')}<circle cx="${w*.53}" cy="${h*.62}" r="16" fill="#e8321e" opacity=".14"/>${pin(w*.53,h*.6,14,'#e8321e')}</svg>`;
+const NEON='/gobiya-logo-neon-black-sm.webp';
+const serpHost=$('#serp');
+serpHost.innerHTML=`<div class="serp">
+ <div class="sr-chrome"><i></i><i></i><i></i><div class="sr-url">${SI.lock}<span>search?q=<b class="sr-uq"></b></span></div><span class="sr-tabt">Search</span></div>
+ <div class="sr-head"><div class="sr-logo"><i>✦</i>search</div><div class="sr-box">${SI.search}<span class="sr-q"></span><span class="sr-caret"></span><span class="sp"></span><span class="ic">${SI.mic}</span><span class="ic">${SI.lens}</span></div><i class="sr-av">SM</i></div>
+ <div class="sr-tabs"><b data-t="all">All</b><b data-t="ai"><i>✦</i>AI Mode</b><b>Maps</b><b>Images</b><b>News</b><span class="sr-bar"></span></div>
+ <div class="sr-prog"></div>
+ <div class="sr-body">
+  <div class="sr-main"><div class="sr-scroll">
+   <p class="sr-meta">About 1,240,000 results (0.38 seconds)</p>
+   <div class="sr-aio"><div class="sr-aio-h"><i>✦</i>AI Overview<small>Generated · 3 sources</small></div><div class="sr-sk"><i></i><i></i><i></i></div><p class="sr-ans"></p>
+    <div class="sr-src"><span class="hot"><img src="${NEON}" alt="">gobiya.com</span><span><i></i>Maps</span><span><i></i>Reviews</span></div></div>
+   <div class="sr-places"><h6>Places</h6><div class="sr-map">${srMap(560,104)}</div>
+    <div class="sr-pl hot"><div><b>Gobiya Agency</b><small>Web designer · Koreatown, Los Angeles</small><small><em>Open</em> · Closes 5 PM · 323-744-1338</small></div><span class="sr-btns"><u>Website</u><u>Directions</u></span></div>
+    <div class="sr-pl"><div><i class="sk w60"></i><i class="sk w40"></i></div><span class="dot"></span></div>
+    <div class="sr-pl"><div><i class="sk w40"></i><i class="sk w60"></i></div><span class="dot"></span></div></div>
+   <div class="sr-org"><div class="sr-site"><img src="${NEON}" alt=""><div><b>Gobiya</b><small>https://www.gobiya.com</small></div></div><h5>Los Angeles Web Design, SEO &amp; AI Search Agency</h5><p class="sr-snip"></p><div class="sr-links"><span>Free site review</span><span>How we work</span><span>Pricing</span><span>FAQ</span></div></div>
+   <div class="sr-org dim"><i class="sk"></i><i class="sk w70"></i><i class="sk w80"></i><i class="sk w70"></i></div>
+  </div></div>
+  <aside class="sr-kp"><div class="sr-kp-top">${srMap(250,96)}<img src="${NEON}" alt=""></div><div class="sr-kp-b"><h4>Gobiya Agency</h4><small>Web design agency in Los Angeles, California</small>
+   <div class="sr-kp-act"><span><i>↗</i>Website</span><span><i>➤</i>Directions</span><span><i>☆</i>Save</span><span><i>✆</i>Call</span></div>
+   <div class="sr-kp-row"><b>Address:</b> 3580 Wilshire Blvd, Ste 132, Los Angeles, CA 90010</div><div class="sr-kp-row"><b>Hours:</b> <em>Open</em> · Closes 5 PM</div><div class="sr-kp-row"><b>Phone:</b> (323) 744-1338</div><div class="sr-kp-row"><b>Since:</b> 2010 · 300+ local clients</div>
+   <div class="sr-kp-tags"><span>Web design</span><span>Local SEO</span><span>AI search</span></div></div></aside>
+ </div>
+ <span class="sr-note">Illustrative example</span>
+</div>`;
+const sr=$('.serp',serpHost),srQ=$('.sr-q',sr),srUQ=$('.sr-uq',sr),srBox=$('.sr-box',sr),srAns=$('.sr-ans',sr),srSnip=$('.sr-snip',sr),srScroll=$('.sr-scroll',sr),srMain=$('.sr-main',sr),srBar=$('.sr-bar',sr),srTabs=$$('.sr-tabs b',sr),srSrc=$$('.sr-src span',sr);
+let srTab='all';
+function placeSrBar(){const t=srTabs.find(b=>b.dataset.t===srTab)||srTabs[0];srTabs.forEach(b=>b.classList.toggle('on',b===t));srBar.style.width=t.offsetWidth+'px';srBar.style.transform=`translateX(${t.offsetLeft}px)`}
+function fitSerp(){const w=serpHost.clientWidth,h=serpHost.clientHeight,n=w<620;sr.classList.toggle('narrow',n);const W=n?540:1000,H=n?700:600;sr.style.setProperty('--s',(Math.min(w/W,h/H)*.94).toFixed(4));placeSrBar()}
+new ResizeObserver(fitSerp).observe(serpHost);fitSerp();
+const SQ=[
+ {q:'web design los angeles',tab:'all',
+  a:[['For custom web design in Los Angeles, '],['Gobiya','b'],[' is a Koreatown agency whose team designs, builds and optimizes websites for Google, Maps and AI search.'],['1','sup'],[' They start every project with a free site review.'],['2','sup']],
+  s:'<b>Los Angeles</b> web design agency in Koreatown. We design, build and optimize custom websites for Google, Maps and AI search. Free site review.'},
+ {q:'who can get my business recommended by chatgpt',tab:'ai',
+  a:[['Agencies that do AI search optimization (GEO) can help. In Los Angeles, '],['Gobiya','b'],[' structures sites so ChatGPT, Perplexity and AI Overviews can read, trust and cite them'],['1','sup'],[', adding schema, clear facts about your services and AI-crawler access.'],['3','sup']],
+  s:'Be the answer in <b>AI search</b>. Our team structures your site so AI can read it, trust it and cite it: the facts, the schema and the crawler settings.'},
+ {q:'seo agency koreatown',tab:'all',
+  a:[['In Koreatown, '],['Gobiya','b'],[' (3580 Wilshire Blvd) handles local SEO, Google Business Profile and AI search for small businesses'],['1','sup'],['. Open weekdays 9–5 and Saturdays 9–3; call 323-744-1338.'],['2','sup']],
+  s:'Local <b>SEO</b>, schema and Google Business Profile for <b>Koreatown</b> and Los Angeles businesses. 300+ local clients since 2010.'}
 ];
-let agentOn=false;
-async function runAgent(){
-  if(agentOn)return;agentOn=true;
-  let k=0;
-  while(vis.has('ai')){
-    if(k%AGENT.length===0){$$('.ed-tg',edB).forEach(t=>t.classList.remove('on'));$$('.ep-foot span',edB).forEach(t=>t.classList.remove('on'));$('.tx',edB).textContent=HEAD;edB.dataset.step='1'}
-    const [sel,msg,fx]=AGENT[k%AGENT.length],tgt=$(sel,edB);
-    const pr=aiPanel.getBoundingClientRect(),r=tgt.getBoundingClientRect();
-    const L=(r.left-pr.left)/pr.width*100,T=(r.top-pr.top)/pr.height*100,W=r.width/pr.width*100,H=r.height/pr.height*100;
-    agSel.style.setProperty('--sx',(L-.8)+'%');agSel.style.setProperty('--sy',(T-1.2)+'%');agSel.style.setProperty('--sw',(W+1.6)+'%');agSel.style.setProperty('--sh',(H+2.4)+'%');
-    agCur.style.setProperty('--cx',(L+W*.7)+'%');agCur.style.setProperty('--cy',(T+H*.6)+'%');
-    agSel.classList.add('on');await sleep(1500);
-    fx(edB);agMsg.textContent=msg;agToast.classList.add('on');
-    await sleep(2400);agToast.classList.remove('on');agSel.classList.remove('on');await sleep(500);k++;
+const srTo=y=>{srScroll.style.transform=`translateY(${-Math.max(0,Math.min(y,srScroll.scrollHeight-srMain.clientHeight))}px)`};
+async function serpRound(d){
+  const F=RM?0:1;
+  sr.className='serp'+(sr.classList.contains('narrow')?' narrow':'');
+  srQ.textContent='';srUQ.textContent='';srAns.innerHTML='';srSnip.innerHTML=d.s;srSrc.forEach(s=>s.classList.remove('in'));
+  srScroll.style.transition='none';srTo(0);void srScroll.offsetWidth;srScroll.style.transition='';
+  srTab=d.tab;placeSrBar();
+  await sleep(450);
+  sr.classList.add('typing');
+  for(let i=1;i<=d.q.length;i++){srQ.textContent=d.q.slice(0,i);await sleep(F?38+Math.random()*55:0)}
+  await sleep(F?420:0);
+  sr.classList.remove('typing');srBox.classList.remove('hit');void srBox.offsetWidth;srBox.classList.add('hit');
+  srUQ.textContent=d.q.replace(/ /g,'+');sr.classList.add('go');
+  await sleep(F?650:0);sr.classList.add('s1');
+  await sleep(F?900:0);sr.classList.add('s2');
+  let html='';
+  for(const [t,tag] of d.a){
+    if(tag==='sup'){html+=`<sup>[${t}]</sup>`;srAns.innerHTML=html;continue}
+    for(let i=1;i<=t.length;i+=F?2:t.length){const p=t.slice(0,i);srAns.innerHTML=html+(tag?`<b>${p}</b>`:p);await sleep(F?14:0)}
+    html+=tag?`<b>${t}</b>`:t;srAns.innerHTML=html;
   }
-  agentOn=false;
+  for(const s of srSrc){await sleep(F?200:0);s.classList.add('in')}
+  await sleep(F?450:0);sr.classList.add('s3');
+  await sleep(F?700:0);srTo($('.sr-places',sr).offsetTop-14);
+  await sleep(F?900:0);sr.classList.add('s4');
+  await sleep(F?700:0);srTo($('.sr-org',sr).offsetTop-150);
+  await sleep(F?2800:4000);
+  sr.classList.add('out');await sleep(F?450:0);
+}
+let serpOn=false;
+async function runSerp(){
+  if(serpOn)return;serpOn=true;let k=0;
+  while(vis.has('ai')){await serpRound(SQ[k%SQ.length]);k++}
+  serpOn=false;
 }
 
 /* =====================================================================
@@ -625,7 +688,7 @@ function frame_(now){
   if(vis.has('how'))runHow();
   if(vis.has('cmpPanel'))runCmp(t);
   if(vis.has('distort'))runDz(t);
-  if(vis.has('ai')&&!agentOn&&loaded)runAgent();
+  if(vis.has('ai')&&!serpOn&&loaded)runSerp();
   if(vis.has('devices'))runPhones(t);
   requestAnimationFrame(frame_);
 }
